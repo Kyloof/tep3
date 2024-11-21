@@ -4,19 +4,36 @@
 
 #ifndef LITERAL_H
 #define LITERAL_H
-#include "ANode.h"
+
+#include "INode.h"
 
 
-
-class Literal : public ANode {
+class Literal : public INode {
 public:
-    Literal(const int& value);
-    Literal(const Literal& value);
-    Literal(int value);
+    // Constructors
+    explicit Literal(const std::string& value);
+    explicit Literal(double value);
+    explicit Literal(const Literal* literal);
     ~Literal();
 
-private:
+    //User info func
+    void printTree() const;
+    void printValue() const;
 
+    //Func
+    const INode* evaluate(std::map<std::string, double> &varsMap) const;
+    INode* getParent() const;
+    void setParent(INode* node);
+    bool inputChild(INode* node, bool exchange);
+    std::string getValue() const;
+    INode* traverseDown() const;
+    bool isLeaf() const;
+    INode* clone() const;
+
+
+private:
+    std::string value;
+    INode* parent;
 };
 
 

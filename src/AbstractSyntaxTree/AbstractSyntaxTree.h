@@ -4,7 +4,9 @@
 
 #ifndef ABSTRACTSYNTAXTREE_H
 #define ABSTRACTSYNTAXTREE_H
-#include "Node.h"
+#include <set>
+
+#include "INode.h"
 #include <string>
 
 
@@ -13,22 +15,30 @@ class AbstractSyntaxTree {
 
 public:
     //Constructors - private
-    AbstractSyntaxTree(int value);
+    AbstractSyntaxTree();
     AbstractSyntaxTree(const AbstractSyntaxTree& other);
     ~AbstractSyntaxTree();
     AbstractSyntaxTree& operator=(const AbstractSyntaxTree& other);
 
 
     //Console func
-    void enter(const std::string& formula);
+    AbstractSyntaxTree& enter(const std::string& formula);
     void vars();
-    void comp(const std::string& vars);
+    std::string comp(const std::string& vars) const;
     void join(const std::string& formula);
+    void print() const;
 
-    //
 
 private:
-    ANode* root;
+    INode* root;
+    INode* inputNode;
+    std::set<std::string> varsSet;
+    bool addFormula(const std::string& formula);
+    INode* createNode(const std::string& formula);
+    INode* copyTree(INode* originalNode);
+
+
+    void fixTree();
 };
 
 

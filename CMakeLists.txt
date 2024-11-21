@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.29)
 project(lab3)
 include_directories(
-        src/Node
+        src/NodeInterface
         src/NodeTypes/Literal
         src/NodeTypes/Operator
         src/NodeTypes/Variable
@@ -12,12 +12,29 @@ set(CMAKE_CXX_STANDARD 98)
 add_executable(lab3 main.cpp
         src/AbstractSyntaxTree/AbstractSyntaxTree.cpp
         src/AbstractSyntaxTree/AbstractSyntaxTree.h
-        src/Node/ANode.cpp
-        src/Node/ANode.h
-        src/Node/NodeEnum.h
+        src/NodeInterface/INode.h
         src/NodeTypes/Literal/Literal.cpp
         src/NodeTypes/Literal/Literal.h
-        src/NodeTypes/Operator/Operator.cpp
-        src/NodeTypes/Operator/Operator.h
+        src/OperatorType/BinaryOperator/BinaryOperator.cpp
+        src/OperatorType/BinaryOperator/BinaryOperator.h
         src/NodeTypes/Variable/Variable.cpp
-        src/NodeTypes/Variable/Variable.h)
+        src/NodeTypes/Variable/Variable.h
+        src/OperatorsFunc/BinaryOperatorsFunc/Addition/Addition.cpp
+        src/OperatorsFunc/BinaryOperatorsFunc/Addition/Addition.h
+        src/OperatorsFunc/BinaryOperatorsFunc/Divide/Divide.cpp
+        src/OperatorsFunc/BinaryOperatorsFunc/Divide/Divide.h
+        src/OperatorsFunc/BinaryOperatorsFunc/Multiply/Multiply.cpp
+        src/OperatorsFunc/BinaryOperatorsFunc/Multiply/Multiply.h
+        src/OperatorsFunc/BinaryOperatorsFunc/Substract/Subtract.cpp
+        src/OperatorsFunc/BinaryOperatorsFunc/Substract/Subtract.h
+        src/Command/Command.cpp
+        src/Command/Command.h
+        src/OperatorType/UniOperator/UniOperator.cpp
+        src/OperatorType/UniOperator/UniOperator.h
+        src/NodeTypes/Operator/AOperator.h
+        src/NodeTypes/Operator/AOperator.cpp
+        src/OperatorsFunc/UniOperatorsFunc/Sinus/Sinus.cpp
+        src/OperatorsFunc/UniOperatorsFunc/Sinus/Sinus.h
+        src/OperatorsFunc/UniOperatorsFunc/Cos/Cos.cpp
+        src/OperatorsFunc/UniOperatorsFunc/Cos/Cos.h
+)

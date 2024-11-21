@@ -1,7 +1,16 @@
 #include <iostream>
 
+#include "src/AbstractSyntaxTree/AbstractSyntaxTree.h"
+
 int main()
 {
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+    AbstractSyntaxTree AST;
+    std::string x = "sin";
+    std::string y = "- a + a b";
+    AST.enter(x);
+    //AST.join(x);
+    AST.print();
+    AST.vars();
+    std::cout<<AST.comp("");
+
 }
