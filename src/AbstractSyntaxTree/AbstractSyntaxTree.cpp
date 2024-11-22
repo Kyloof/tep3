@@ -23,25 +23,42 @@
 AbstractSyntaxTree::AbstractSyntaxTree() : root(0), inputNode(root), varsSet(){}
 
 AbstractSyntaxTree::AbstractSyntaxTree(const AbstractSyntaxTree &other) {
-
+    root = 0;
+    inputNode = 0;
+    if (other.root != 0) {
+    std::string* formula = new std::string;
+    this->enter(other.root->getFormula(*formula));
+    delete formula;
+    }
 }
 
 AbstractSyntaxTree& AbstractSyntaxTree::operator=(const AbstractSyntaxTree& other) {
-    if (this == &other) return *this; // Self-assignment check.
-
-    delete root;
-    delete inputNode;
-
-    root = copyTree(other.root);
-    varsSet = other.varsSet;
-    inputNode = root;
-
+    if (this == &other) return *this;
+    std::string* formula = new std::string;
+    this->enter(other.root->getFormula(*formula));
+    delete formula;
     return *this;
 }
 
+AbstractSyntaxTree AbstractSyntaxTree::operator+(const AbstractSyntaxTree& other) const {
+    AbstractSyntaxTree newTree = *this;
+    std::string* formula = new std::string;
+    newTree.join(other.root->getFormula(*formula));
+    delete formula;
+
+    return newTree;
+}
+
 AbstractSyntaxTree::~AbstractSyntaxTree() {
-    delete root;
-    delete inputNode;
+    if(root == 0) {
+        delete root;
+        delete inputNode;
+        return;
+    }
+    if(root->getParent()==0) {
+        delete root;
+        delete inputNode;
+    }
 }
 
 INode* AbstractSyntaxTree::createNode(const std::string& formula) {
@@ -118,6 +135,8 @@ bool AbstractSyntaxTree::addFormula(const std::string& formula) {
 
 
 AbstractSyntaxTree& AbstractSyntaxTree::enter(const std::string &formula) {
+    delete root;
+    delete inputNode;
     std::string currentFormula;
     for (int i = 0; i <= formula.size(); i++) {
 
@@ -226,22 +245,6 @@ void AbstractSyntaxTree::print() const {
     std::cout << "\n";
 }
 
-INode* AbstractSyntaxTree::copyTree(INode* originalNode) {
-    if (originalNode == NULL) return NULL;
-
-    INode* newNode = originalNode->clone();
-
-    if (!newNode->isLeaf()) {
-        INode* childNode = newNode->traverseDown(); // This assumes traverseDown() gives the first child
-        while (childNode != nullptr) {
-            INode* copiedChild = copyTree(childNode);  // Recursively copy each child
-            newNode->inputChild(copiedChild, false);   // Set this child to the new node
-            childNode = childNode->traverseDown();    // Move to the next child
-        }
-    }
-
-    return newNode;
-}
 
 
 

@@ -16,7 +16,7 @@ public:
     //virtual
     virtual const INode* evaluate(std::map<std::string, double> &) const = 0;
     virtual std::string getValue() const = 0;
-
+    virtual INode* clone() const = 0;
     //func
     void allocateLeftChild(INode* node);
     void allocateRightChild(INode* node);
@@ -28,6 +28,7 @@ public:
     bool isLeaf() const;
     INode* traverseDown() const;
     void printTree() const;
+    std::string &getFormula(std::string &formula);
 
 private:
     INode* leftChild;

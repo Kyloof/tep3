@@ -19,6 +19,7 @@ public:
     AbstractSyntaxTree(const AbstractSyntaxTree& other);
     ~AbstractSyntaxTree();
     AbstractSyntaxTree& operator=(const AbstractSyntaxTree& other);
+    AbstractSyntaxTree operator+(const AbstractSyntaxTree& other) const;
 
 
     //Console func
@@ -35,8 +36,6 @@ private:
     std::set<std::string> varsSet;
     bool addFormula(const std::string& formula);
     INode* createNode(const std::string& formula);
-    INode* copyTree(INode* originalNode);
-
 
     void fixTree();
 };

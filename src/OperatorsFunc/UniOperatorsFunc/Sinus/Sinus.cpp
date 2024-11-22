@@ -8,6 +8,16 @@
 #include <sstream>
 #include "Literal.h"
 
+Sinus::Sinus() : UniOperator(){}
+
+Sinus::Sinus(const Sinus &other)  : UniOperator(other) {
+    this->parent=0;
+}
+
+
+INode *Sinus::clone() const {
+    return new Sinus(*this);
+}
 
 const INode *Sinus::evaluate(std::map<std::string, double> &varsMap) const {
     std::string childValue = getChild()->evaluate(varsMap)->getValue();

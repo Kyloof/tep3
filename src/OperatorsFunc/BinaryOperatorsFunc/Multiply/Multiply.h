@@ -9,6 +9,10 @@
 
 
 class Multiply : public BinaryOperator{
+public:
+    Multiply();
+    INode* clone() const;
+    Multiply(const Multiply& other);
     const INode *evaluate(std::map<std::string, double> &varsMap) const;
     std::string getValue() const;
 };

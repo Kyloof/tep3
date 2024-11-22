@@ -63,6 +63,11 @@ INode *Literal::clone() const {
     return new Literal(this);
 }
 
+std::string &Literal::getFormula(std::string &formula) {
+    formula += getValue() + " ";
+    return formula;
+}
+
 
 
 

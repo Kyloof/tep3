@@ -30,6 +30,7 @@ public:
     virtual INode* traverseDown() const = 0;
     virtual bool isLeaf() const = 0;
     virtual INode* clone() const = 0;
+    virtual std::string &getFormula(std::string &formula) = 0;
 
 };
 

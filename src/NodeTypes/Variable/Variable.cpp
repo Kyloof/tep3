@@ -61,6 +61,11 @@ INode *Variable::clone() const {
     return new Variable(this);
 }
 
+std::string &Variable::getFormula(std::string &formula) {
+    formula += getValue() + " ";
+    return formula;
+}
+
 
 
 

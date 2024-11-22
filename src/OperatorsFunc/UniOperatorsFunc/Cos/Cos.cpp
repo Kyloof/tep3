@@ -8,6 +8,16 @@
 #include <sstream>
 #include "Literal.h"
 
+Cos::Cos() : UniOperator(){}
+
+Cos::Cos(const Cos &other)  : UniOperator(other) {
+    this->parent = 0;
+}
+
+INode *Cos::clone() const {
+    return new Cos(*this);
+}
+
 
 const INode* Cos::evaluate(std::map<std::string, double> &varsMap) const {
     std::string childValue = getChild()->evaluate(varsMap)->getValue();

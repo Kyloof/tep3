@@ -79,6 +79,14 @@ void BinaryOperator::printTree() const {
     }
 }
 
+std::string &BinaryOperator::getFormula(std::string &formula) {
+    formula += this->getValue() + " ";
+    if(hasLeftChild()) leftChild->getFormula(formula);
+    if(hasRightChild()) rightChild->getFormula(formula);
+    return formula;
+}
+
+
 
 
 

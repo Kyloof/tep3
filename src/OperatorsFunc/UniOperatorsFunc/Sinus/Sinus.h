@@ -8,6 +8,9 @@
 
 class Sinus : public UniOperator {
 public:
+    Sinus();
+    INode* clone() const;
+    Sinus(const Sinus& other);
     const INode *evaluate(std::map<std::string, double> &varsMap) const;
     std::string getValue() const;
 };

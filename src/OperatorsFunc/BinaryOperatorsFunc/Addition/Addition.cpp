@@ -6,6 +6,13 @@
 #include <sstream>
 #include "Literal.h"
 
+Addition::Addition() : BinaryOperator(){}
+
+Addition::Addition(const Addition &other)  : BinaryOperator(other) {
+    parent = 0;
+}
+
+
 const INode* Addition::evaluate(std::map<std::string, double> &varsMap) const {
     const std::string leftValue = this->getLeftChild()->evaluate(varsMap)->getValue();
     const std::string rightValue = this->getRightChild()->evaluate(varsMap)->getValue();
@@ -26,4 +33,10 @@ const INode* Addition::evaluate(std::map<std::string, double> &varsMap) const {
 std::string Addition::getValue() const {
     return "+";
 }
+
+
+INode *Addition::clone() const {
+    return (new Addition(*this));
+}
+
 

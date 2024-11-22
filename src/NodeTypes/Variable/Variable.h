@@ -30,6 +30,7 @@ public:
     INode* traverseDown() const;
     bool isLeaf() const;
     INode* clone() const;
+    std::string &getFormula(std::string &formula);
 
 
 private:

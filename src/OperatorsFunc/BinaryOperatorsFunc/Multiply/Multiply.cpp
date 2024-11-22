@@ -4,6 +4,8 @@
 #include <sstream>
 #include "Literal.h"
 
+Multiply::Multiply() : BinaryOperator() {}
+
 const INode* Multiply::evaluate(std::map<std::string, double> &varsMap) const {
     const std::string leftValue = this->getLeftChild()->evaluate(varsMap)->getValue();
     const std::string rightValue = this->getRightChild()->evaluate(varsMap)->getValue();
@@ -23,4 +25,12 @@ const INode* Multiply::evaluate(std::map<std::string, double> &varsMap) const {
 
 std::string Multiply::getValue() const {
     return "*";
+}
+
+Multiply::Multiply(const Multiply &other)  : BinaryOperator(other) {
+    parent = 0;
+}
+
+INode *Multiply::clone() const {
+    return (new Multiply(*this));
 }

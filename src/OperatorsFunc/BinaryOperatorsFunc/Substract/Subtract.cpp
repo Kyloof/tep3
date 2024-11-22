@@ -4,6 +4,8 @@
 #include <sstream>
 #include "Literal.h"
 
+Subtract::Subtract() : BinaryOperator() {}
+
 const INode* Subtract::evaluate(std::map<std::string, double> &varsMap) const {
     const std::string leftValue = this->getLeftChild()->evaluate(varsMap)->getValue();
     const std::string rightValue = this->getRightChild()->evaluate(varsMap)->getValue();
@@ -23,4 +25,12 @@ const INode* Subtract::evaluate(std::map<std::string, double> &varsMap) const {
 
 std::string Subtract::getValue() const {
     return "-";
+}
+
+Subtract::Subtract(const Subtract &other)  : BinaryOperator(other) {
+    parent = 0;
+}
+
+INode *Subtract::clone() const {
+    return (new Subtract(*this));
 }

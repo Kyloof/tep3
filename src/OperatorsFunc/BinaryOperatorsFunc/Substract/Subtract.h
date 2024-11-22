@@ -10,6 +10,9 @@
 
 class Subtract : public BinaryOperator {
 public:
+    Subtract();
+    INode* clone() const;
+    Subtract(const Subtract& other);
     const INode *evaluate(std::map<std::string, double> &varsMap) const;
     std::string getValue() const;
 };

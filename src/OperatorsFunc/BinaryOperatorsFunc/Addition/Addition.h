@@ -8,8 +8,12 @@
 
 
 class Addition : public BinaryOperator{
+public:
+    Addition();
+    Addition(const Addition& other);
     const INode *evaluate(std::map<std::string, double> &varsMap) const;
     std::string getValue() const;
+    INode* clone() const;
 };
 
 

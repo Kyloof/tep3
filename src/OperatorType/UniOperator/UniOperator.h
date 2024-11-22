@@ -17,6 +17,7 @@ public:
     //virtual
     virtual const INode* evaluate(std::map<std::string, double> &varsMap) const = 0;
     virtual std::string getValue() const = 0;
+    virtual INode* clone() const = 0;
 
     //funcs
     INode* getChild() const;
@@ -26,6 +27,7 @@ public:
     INode* traverseDown() const;
     bool isLeaf() const;
     void printTree() const;
+    std::string &getFormula(std::string &formula);
 
 private:
     INode* child;

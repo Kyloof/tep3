@@ -50,6 +50,13 @@ void UniOperator::printTree() const {
     }
 }
 
+std::string &UniOperator::getFormula(std::string &formula) {
+    formula+=this->getValue() + " ";
+    if(hasChild()) child->getFormula(formula);
+    return formula;
+}
+
+
 
 
 

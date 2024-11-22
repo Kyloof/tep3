@@ -8,8 +8,12 @@
 
 
 class Divide : public BinaryOperator{
+public:
+    Divide();
+    Divide(const Divide& other);
     const INode *evaluate(std::map<std::string, double> &varsMap) const;
     std::string getValue() const;
+    INode* clone() const;
 };
 
 
