@@ -37,12 +37,12 @@ bool ABinaryOperator::hasRightChild() const {
 
 void ABinaryOperator::allocateLeftChild(INode* node) {
     this->leftChild = node;
-    node->setParent(this);
+    leftChild->setParent(this);
 }
 
 void ABinaryOperator::allocateRightChild(INode* node) {
     this->rightChild = node;
-    node->setParent(this);
+    rightChild->setParent(this);
 }
 
 bool ABinaryOperator::inputChild(INode* node, const bool exchange) {
@@ -92,6 +92,7 @@ const std::string &ABinaryOperator::getFormula(std::string &formula) const {
     if(hasRightChild()) rightChild->getFormula(formula);
     return formula;
 }
+
 
 
 

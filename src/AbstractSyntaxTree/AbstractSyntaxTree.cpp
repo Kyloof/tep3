@@ -50,14 +50,9 @@ AbstractSyntaxTree AbstractSyntaxTree::operator+(const AbstractSyntaxTree& other
 }
 
 AbstractSyntaxTree::~AbstractSyntaxTree() {
-    if(root == 0) {
+    if (root != 0 && root->getParent()==0) {
         delete root;
-        delete inputNode;
-        return;
-    }
-    if(root->getParent()==0) {
-        delete root;
-        delete inputNode;
+        root = NULL;
     }
 }
 
@@ -80,7 +75,7 @@ INode* AbstractSyntaxTree::createNode(const std::string& formula) {
     for (int i = 0; i < formula.size(); i++) {
         if (!std::isdigit(formula[i]) && !std::isalpha(formula[i])) {
             isValid = false;
-            std::cout << "Invalid character detected in formula: " << formula[i] << " - ignoring...\n";
+            std::cout << "Invalid character " << formula[i] << " detected. ";
             break;
         }
     }
@@ -110,9 +105,11 @@ bool AbstractSyntaxTree::addFormula(const std::string& formula) {
 
     bool inputBool = false;
     INode* newNode = createNode(formula);
+    if (newNode == NULL) {
+        delete newNode;
+        return true;
+    }
     if (root == 0) {
-        delete root;
-        delete inputNode;
         root = newNode;
         inputNode = root;
         return true;
@@ -135,10 +132,10 @@ bool AbstractSyntaxTree::addFormula(const std::string& formula) {
 
 
 AbstractSyntaxTree& AbstractSyntaxTree::enter(const std::string &formula) {
-    delete root;
-    delete inputNode;
 
+    delete root;
     root = NULL;
+
     inputNode = NULL;
 
     std::string currentFormula;
@@ -191,6 +188,9 @@ void AbstractSyntaxTree::fixTree() {
 
 
 std::string AbstractSyntaxTree::comp(const std::string &vars) const {
+    if (root == NULL) {
+        return "tree is empty \n" ;
+    }
     std::istringstream iss(vars);
     std::vector<double> values;
     double value;
@@ -228,11 +228,17 @@ void AbstractSyntaxTree::join(const std::string &formula) {
         while (!nodeToJoin->isLeaf()) {
             nodeToJoin=nodeToJoin->traverseDown();
         }
+
         INode* parentNode = nodeToJoin->getParent();
-        parentNode->inputChild(other.root, true);
+        if (parentNode != 0) parentNode->inputChild(other.root, true);
+        else {
+            delete root;
+            root = NULL;
+            this->enter(formula);
+        }
     }
     else {
-        root = other.root;
+        *this = other;
     }
 
 
@@ -248,6 +254,10 @@ void AbstractSyntaxTree::vars() {
 }
 
 void AbstractSyntaxTree::print() const {
+    if (root == NULL) {
+        std::cout<<"tree is empty" << '\n';
+        return;
+    }
     std::cout<<"printing tree..." << '\n';
     root->printTree();
     std::cout << "\n";

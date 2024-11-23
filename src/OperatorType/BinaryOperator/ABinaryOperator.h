@@ -14,7 +14,7 @@ public:
     ~ABinaryOperator();
 
     //virtual
-    const INode* evaluate(std::map<std::string, double> &) const = 0;
+    const INode* evaluate(std::map<std::string, double>& varsMap) const = 0;
     std::string getStrValue() const = 0;
 
     //user info
