@@ -6,45 +6,42 @@
 #include <iostream>
 #include <sstream>
 
-//Constructors
-Literal::Literal(const std::string& value) : value(value), parent(0) {}
 
-Literal::Literal(const double value) {
-    std::ostringstream oss;
-    oss << value;
-    this->value = oss.str();
+//Constructors
+Literal::Literal(const std::string& value) {
     parent = 0;
+    std::stringstream ss;
+    ss << value;
+    double dbl;
+    ss >> dbl;
+    this->value = dbl;
 }
 
-Literal::Literal(const Literal* literal) {
-    this->value = literal->value;
-    this->parent = 0;
+Literal::Literal(const double value) {
+    this->value = value;
+    parent = 0;
 }
 
 Literal::~Literal() {}
 
-INode* Literal::getParent() const {
-    return this->parent;
-}
 
-void Literal::setParent(INode* node) {
-    this->parent = node;
-}
-
-bool Literal::inputChild(INode* node, const bool exchange) {
-    return false;
-}
-
-std::string Literal::getValue() const {
-    return value;
-}
-
+//user info
 void Literal::printValue() const {
     std::cout << value << " ";
 }
 
+void Literal::printTree() const {
+    printValue();
+}
+
+
+//functions
 const INode* Literal::evaluate(std::map<std::string, double> &varsMap) const {
     return this;
+}
+
+bool Literal::inputChild(INode* node, const bool exchange) {
+    return false;
 }
 
 INode *Literal::traverseDown() const {
@@ -55,16 +52,30 @@ bool Literal::isLeaf() const {
     return true;
 }
 
-void Literal::printTree() const {
-    printValue();
+
+
+
+// getters&setters
+INode* Literal::getParent() const {
+    return parent;
 }
 
-INode *Literal::clone() const {
-    return new Literal(this);
+void Literal::setParent(INode* node) {
+    parent = node;
 }
 
-std::string &Literal::getFormula(std::string &formula) {
-    formula += getValue() + " ";
+std::string Literal::getStrValue() const {
+    std::ostringstream oss;
+    oss << value;
+    return oss.str();
+}
+
+double Literal::getValue() const {
+    return value;
+}
+
+const std::string& Literal::getFormula(std::string &formula) const {
+    formula += getStrValue() + " ";
     return formula;
 }
 

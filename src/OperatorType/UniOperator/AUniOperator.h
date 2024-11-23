@@ -8,26 +8,29 @@
 #include "INode.h"
 
 
-class UniOperator : public AOperator {
+class AUniOperator : public AOperator {
 
 public:
-    UniOperator();
-    ~UniOperator();
+    AUniOperator();
+    ~AUniOperator();
 
     //virtual
-    virtual const INode* evaluate(std::map<std::string, double> &varsMap) const = 0;
-    virtual std::string getValue() const = 0;
-    virtual INode* clone() const = 0;
+    const INode* evaluate(std::map<std::string, double> &varsMap) const = 0;
+    std::string getStrValue() const = 0;
 
-    //funcs
-    INode* getChild() const;
+    //user info
+    void printTree() const;
+
+    //Functions
     bool hasChild() const;
     void allocateChild(INode* node);
     bool inputChild(INode* node, bool exchange);
     INode* traverseDown() const;
     bool isLeaf() const;
-    void printTree() const;
-    std::string &getFormula(std::string &formula);
+
+    //getters&setters
+    INode* getChild() const;
+    const std::string &getFormula(std::string &formula) const;
 
 private:
     INode* child;

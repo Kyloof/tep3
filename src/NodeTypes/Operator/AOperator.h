@@ -13,20 +13,20 @@ public:
     ~AOperator();
     AOperator();
 
-    //virtual
-    virtual const INode* evaluate(std::map<std::string, double> &varsMap) const = 0;
-    virtual bool inputChild(INode* node, bool exchange) = 0;
-    virtual std::string getValue() const = 0;
-    virtual INode* traverseDown() const = 0;
-    virtual void printTree() const = 0;
-    virtual bool isLeaf() const = 0;
-    virtual INode* clone() const = 0;
-    virtual std::string &getFormula(std::string &formula) = 0;
+    //abstract
+    const INode* evaluate(std::map<std::string, double> &varsMap) const = 0;
+    bool inputChild(INode* node, bool exchange) = 0;
+    std::string getStrValue() const = 0;
+    INode* traverseDown() const = 0;
+    void printTree() const = 0;
+    bool isLeaf() const = 0;
+    const std::string &getFormula(std::string &formula) const = 0;
 
-    //non virtual
+    //getters&setters
     INode* getParent() const;
     void setParent(INode* node);
     void printValue() const;
+    double getValue() const;
 
 
 protected:

@@ -5,10 +5,12 @@
 #include "AOperator.h"
 #include <iostream>
 
+//Constructors
 AOperator::AOperator() : parent(0) {}
-
 AOperator::~AOperator() {}
 
+
+//getters&setters
 INode* AOperator::getParent() const {
     return this->parent;
 }
@@ -18,7 +20,12 @@ void AOperator::setParent(INode* node) {
 }
 
 void AOperator::printValue() const {
-    std::cout << getValue() << " ";
+    std::cout << getStrValue() << " ";
 }
+
+double AOperator::getValue() const {
+    return -1;
+}
+
 
 

@@ -13,7 +13,6 @@ public:
     // Constructors
     explicit Literal(const std::string& value);
     explicit Literal(double value);
-    explicit Literal(const Literal* literal);
     ~Literal();
 
     //User info func
@@ -22,18 +21,19 @@ public:
 
     //Func
     const INode* evaluate(std::map<std::string, double> &varsMap) const;
-    INode* getParent() const;
-    void setParent(INode* node);
     bool inputChild(INode* node, bool exchange);
-    std::string getValue() const;
     INode* traverseDown() const;
     bool isLeaf() const;
-    INode* clone() const;
-    std::string &getFormula(std::string &formula);
 
+    //getters&setters
+    INode* getParent() const;
+    void setParent(INode* node);
+    std::string getStrValue() const;
+    double getValue() const;
+    const std::string& getFormula(std::string &formula) const;
 
 private:
-    std::string value;
+    double value;
     INode* parent;
 };
 

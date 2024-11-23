@@ -4,16 +4,18 @@
 
 #ifndef DIVIDE_H
 #define DIVIDE_H
-#include "../../../OperatorType/BinaryOperator/BinaryOperator.h"
+#include "../../../OperatorType/BinaryOperator/ABinaryOperator.h"
 
 
-class Divide : public BinaryOperator{
+class Divide : public ABinaryOperator{
 public:
     Divide();
-    Divide(const Divide& other);
+
+    //Functions
     const INode *evaluate(std::map<std::string, double> &varsMap) const;
-    std::string getValue() const;
-    INode* clone() const;
+
+    //getters
+    std::string getStrValue() const;
 };
 
 

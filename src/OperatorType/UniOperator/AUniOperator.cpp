@@ -2,37 +2,38 @@
 // Created by janku on 20.11.2024.
 //
 
-#include "UniOperator.h"
+#include "AUniOperator.h"
 
-UniOperator::UniOperator() : child(0) {}
+AUniOperator::AUniOperator() : child(0) {}
 
-UniOperator::~UniOperator() {
+AUniOperator::~AUniOperator() {
     delete child;
+    child = 0;
 }
 
-INode* UniOperator::getChild() const {
+INode* AUniOperator::getChild() const {
     return this->child;
 }
 
-INode *UniOperator::traverseDown() const {
+INode *AUniOperator::traverseDown() const {
     return getChild();
 }
 
-bool UniOperator::isLeaf() const {
+bool AUniOperator::isLeaf() const {
     return getChild()!=0;
 }
 
 
-bool UniOperator::hasChild() const {
+bool AUniOperator::hasChild() const {
     return this->child != 0;
 }
 
-void UniOperator::allocateChild(INode* node) {
+void AUniOperator::allocateChild(INode* node) {
     this->child = node;
     node->setParent(this);
 }
 
-bool UniOperator::inputChild(INode* node, const bool exchange) {
+bool AUniOperator::inputChild(INode* node, const bool exchange) {
     if (exchange) {
         delete child;
         allocateChild(node);
@@ -43,15 +44,15 @@ bool UniOperator::inputChild(INode* node, const bool exchange) {
     return true;
 }
 
-void UniOperator::printTree() const {
+void AUniOperator::printTree() const {
     printValue();
     if (hasChild()) {
         child->printTree();
     }
 }
 
-std::string &UniOperator::getFormula(std::string &formula) {
-    formula+=this->getValue() + " ";
+const std::string& AUniOperator::getFormula(std::string &formula) const {
+    formula+=this->getStrValue() + " ";
     if(hasChild()) child->getFormula(formula);
     return formula;
 }

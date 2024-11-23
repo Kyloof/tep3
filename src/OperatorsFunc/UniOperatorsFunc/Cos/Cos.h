@@ -4,16 +4,18 @@
 
 #ifndef COS_H
 #define COS_H
-#include "../../../OperatorType/UniOperator/UniOperator.h"
+#include "../../../OperatorType/UniOperator/AUniOperator.h"
 
 
-class Cos : public UniOperator {
+class Cos : public AUniOperator {
 public:
     Cos();
-    INode* clone() const;
-    Cos(const Cos& other);
+
+    //Functions
     const INode *evaluate(std::map<std::string, double> &varsMap) const;
-    std::string getValue() const;
+
+    //getters
+    std::string getStrValue() const;
 };
 
 

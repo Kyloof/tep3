@@ -5,16 +5,18 @@
 #ifndef MULTIPLY_H
 #define MULTIPLY_H
 #include "INode.h"
-#include "../../../OperatorType/BinaryOperator/BinaryOperator.h"
+#include "../../../OperatorType/BinaryOperator/ABinaryOperator.h"
 
 
-class Multiply : public BinaryOperator{
+class Multiply : public ABinaryOperator{
 public:
     Multiply();
-    INode* clone() const;
-    Multiply(const Multiply& other);
+
+    //Functions
     const INode *evaluate(std::map<std::string, double> &varsMap) const;
-    std::string getValue() const;
+
+    //getters
+    std::string getStrValue() const;
 };
 
 

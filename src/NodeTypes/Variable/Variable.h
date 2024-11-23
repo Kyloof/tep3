@@ -9,12 +9,10 @@
 #include "INode.h"
 
 
-class Variable : public virtual INode{
+class Variable : public INode{
 public:
     //Constructors
     explicit Variable(const std::string& newName);
-    explicit Variable(const Variable* variable);
-
     ~Variable();
 
     //User info func
@@ -23,19 +21,21 @@ public:
 
     //Func
     const INode* evaluate(std::map<std::string, double> &varsMap) const;
-    INode* getParent() const;
-    void setParent(INode* node);
     bool inputChild(INode* node, bool exchange);
-    std::string getValue() const;
     INode* traverseDown() const;
     bool isLeaf() const;
-    INode* clone() const;
-    std::string &getFormula(std::string &formula);
 
+    //getters&setters
+    INode* getParent() const;
+    void setParent(INode* node);
+    std::string getStrValue() const;
+    double getValue() const;
+    const std::string &getFormula(std::string &formula) const;
 
 private:
     std::string name;
     INode* parent;
+    mutable double value;
 };
 
 

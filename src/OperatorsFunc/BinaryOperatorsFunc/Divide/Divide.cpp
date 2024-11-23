@@ -4,40 +4,21 @@
 #include <sstream>
 #include "Literal.h"
 
-Divide::Divide() : BinaryOperator() {}
+Divide::Divide() {}
 
+
+//Functions
 const INode* Divide::evaluate(std::map<std::string, double> &varsMap) const {
-    const std::string leftValue = this->getLeftChild()->evaluate(varsMap)->getValue();
-    const std::string rightValue = this->getRightChild()->evaluate(varsMap)->getValue();
-
-    int leftInt, rightInt;
-
-    std::stringstream(leftValue) >> leftInt;
-    std::stringstream(rightValue) >> rightInt;
-
-    if (rightInt == 0) {
-        throw std::invalid_argument("Division by zero is undefined.");
-    }
-
-    const int result = leftInt / rightInt;
-
-    std::stringstream resultStream;
-    resultStream << result;
-    const std::string resultStr = resultStream.str();
-
-    return new Literal(resultStr);
+    const double leftInt = getLeftChild()->evaluate(varsMap)->getValue();
+    const double rightInt = getRightChild()->evaluate(varsMap)->getValue();
+    return new Literal(leftInt / rightInt);
 }
 
-std::string Divide::getValue() const {
+
+//getters
+std::string Divide::getStrValue() const {
     return "/";
 }
 
-Divide::Divide(const Divide &other)  : BinaryOperator(other) {
-    parent = 0;
-}
-
-INode *Divide::clone() const {
-    return (new Divide(*this));
-}
 
 

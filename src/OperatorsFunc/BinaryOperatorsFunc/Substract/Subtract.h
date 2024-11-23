@@ -5,16 +5,18 @@
 #ifndef SUBSTRACT_H
 #define SUBSTRACT_H
 
-#include "../../../OperatorType/BinaryOperator/BinaryOperator.h"
+#include "../../../OperatorType/BinaryOperator/ABinaryOperator.h"
 
 
-class Subtract : public BinaryOperator {
+class Subtract : public ABinaryOperator {
 public:
     Subtract();
-    INode* clone() const;
-    Subtract(const Subtract& other);
+
+    //Functions
     const INode *evaluate(std::map<std::string, double> &varsMap) const;
-    std::string getValue() const;
+
+    //getters
+    std::string getStrValue() const;
 };
 
 

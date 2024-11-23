@@ -4,15 +4,17 @@
 
 #ifndef SINUS_H
 #define SINUS_H
-#include "../../../OperatorType/UniOperator/UniOperator.h"
+#include "../../../OperatorType/UniOperator/AUniOperator.h"
 
-class Sinus : public UniOperator {
+class Sinus : public AUniOperator {
 public:
     Sinus();
-    INode* clone() const;
-    Sinus(const Sinus& other);
+
+    //Functions
     const INode *evaluate(std::map<std::string, double> &varsMap) const;
-    std::string getValue() const;
+
+    //getters
+    std::string getStrValue() const;
 };
 
 

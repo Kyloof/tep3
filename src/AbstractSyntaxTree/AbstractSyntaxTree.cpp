@@ -137,10 +137,14 @@ bool AbstractSyntaxTree::addFormula(const std::string& formula) {
 AbstractSyntaxTree& AbstractSyntaxTree::enter(const std::string &formula) {
     delete root;
     delete inputNode;
+
+    root = NULL;
+    inputNode = NULL;
+
     std::string currentFormula;
     for (int i = 0; i <= formula.size(); i++) {
 
-        if (formula[i] == ' ' || i == formula.size()){
+        if (formula[i] == ' ' || i == formula.size()  && !currentFormula.empty()){
             const bool result = addFormula(currentFormula);
             if (!result) {
                 std::cout<<"removed: ";
@@ -165,14 +169,18 @@ void AbstractSyntaxTree::fixTree() {
         return;
     }
     bool hadToFix = false;
-    while(inputNode!=0) {
-        bool inputBool = true;
-        while (inputBool) {
-            inputBool = inputNode->inputChild(new Literal(1), false);
-            if(inputBool) hadToFix = true;
-        }
+
+    //fix children
+    while(inputNode!=root) {
+        if (inputNode->inputChild(new Literal(1), false)) hadToFix = true;
         inputNode = inputNode->getParent();
     }
+
+    //fix root
+    while (inputNode->inputChild(new Literal(1), false)) {
+        hadToFix = true;
+    }
+
     if (hadToFix) {
         std::cout << "fixed formula: " << "\n";
         root->printTree();
@@ -192,11 +200,11 @@ std::string AbstractSyntaxTree::comp(const std::string &vars) const {
     }
 
     if (values.size() != varsSet.size()) {
-        std::cerr << "Error: Mismatch between number of variables and values provided.\n";
+        std::cout << "Number of variables is not equal to values entered. Please try again..." << "\n";
+        return "";
     }
 
     std::map<std::string, double> varsMap;
-
     std::set<std::string>::const_iterator varIt = varsSet.begin();
     std::vector<double>::const_iterator valIt = values.begin();
 
@@ -204,12 +212,11 @@ std::string AbstractSyntaxTree::comp(const std::string &vars) const {
         varsMap[*varIt] = *valIt;
     }
 
-    std::map<std::string, double>::const_iterator mapIt;
-    for (mapIt = varsMap.begin(); mapIt != varsMap.end(); ++mapIt) {
+    for (std::map<std::string, double>::const_iterator mapIt = varsMap.begin(); mapIt != varsMap.end(); ++mapIt) {
         std::cout << mapIt->first << " = " << mapIt->second << "\n";
     }
 
-    return root->evaluate(varsMap)->getValue();
+    return root->evaluate(varsMap)->getStrValue();
 }
 
 void AbstractSyntaxTree::join(const std::string &formula) {
@@ -223,11 +230,12 @@ void AbstractSyntaxTree::join(const std::string &formula) {
         }
         INode* parentNode = nodeToJoin->getParent();
         parentNode->inputChild(other.root, true);
-
     }
     else {
         root = other.root;
     }
+
+
 }
 
 void AbstractSyntaxTree::vars() {

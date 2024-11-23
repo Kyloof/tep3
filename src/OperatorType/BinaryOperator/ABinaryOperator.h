@@ -8,27 +8,31 @@
 #include "INode.h"
 
 
-class BinaryOperator : public AOperator {
+class ABinaryOperator : public AOperator {
 public:
-    BinaryOperator();
-    ~BinaryOperator();
+    ABinaryOperator();
+    ~ABinaryOperator();
 
     //virtual
-    virtual const INode* evaluate(std::map<std::string, double> &) const = 0;
-    virtual std::string getValue() const = 0;
-    virtual INode* clone() const = 0;
+    const INode* evaluate(std::map<std::string, double> &) const = 0;
+    std::string getStrValue() const = 0;
+
+    //user info
+    void printTree() const;
+
     //func
     void allocateLeftChild(INode* node);
     void allocateRightChild(INode* node);
-    INode* getLeftChild() const;
-    INode* getRightChild() const;
     bool hasLeftChild() const;
     bool hasRightChild() const;
     bool inputChild(INode* node, bool exchange);
-    bool isLeaf() const;
     INode* traverseDown() const;
-    void printTree() const;
-    std::string &getFormula(std::string &formula);
+    bool isLeaf() const;
+
+    //getters&setters
+    const std::string &getFormula(std::string &formula) const;
+    INode* getLeftChild() const;
+    INode* getRightChild() const;
 
 private:
     INode* leftChild;

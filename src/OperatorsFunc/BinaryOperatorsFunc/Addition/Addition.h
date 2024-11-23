@@ -4,16 +4,18 @@
 
 #ifndef ADDITION_H
 #define ADDITION_H
-#include "../../../OperatorType/BinaryOperator/BinaryOperator.h"
+#include "../../../OperatorType/BinaryOperator/ABinaryOperator.h"
 
 
-class Addition : public BinaryOperator{
+class Addition : public ABinaryOperator{
 public:
     Addition();
-    Addition(const Addition& other);
+
+    //Functions
     const INode *evaluate(std::map<std::string, double> &varsMap) const;
-    std::string getValue() const;
-    INode* clone() const;
+
+    //getters
+    std::string getStrValue() const;
 };
 
 

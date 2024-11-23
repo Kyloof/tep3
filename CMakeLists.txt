@@ -15,8 +15,8 @@ add_executable(lab3 main.cpp
         src/NodeInterface/INode.h
         src/NodeTypes/Literal/Literal.cpp
         src/NodeTypes/Literal/Literal.h
-        src/OperatorType/BinaryOperator/BinaryOperator.cpp
-        src/OperatorType/BinaryOperator/BinaryOperator.h
+        src/OperatorType/BinaryOperator/ABinaryOperator.cpp
+        src/OperatorType/BinaryOperator/ABinaryOperator.h
         src/NodeTypes/Variable/Variable.cpp
         src/NodeTypes/Variable/Variable.h
         src/OperatorsFunc/BinaryOperatorsFunc/Addition/Addition.cpp
@@ -29,8 +29,8 @@ add_executable(lab3 main.cpp
         src/OperatorsFunc/BinaryOperatorsFunc/Substract/Subtract.h
         src/Command/Command.cpp
         src/Command/Command.h
-        src/OperatorType/UniOperator/UniOperator.cpp
-        src/OperatorType/UniOperator/UniOperator.h
+        src/OperatorType/UniOperator/AUniOperator.cpp
+        src/OperatorType/UniOperator/AUniOperator.h
         src/NodeTypes/Operator/AOperator.h
         src/NodeTypes/Operator/AOperator.cpp
         src/OperatorsFunc/UniOperatorsFunc/Sinus/Sinus.cpp
