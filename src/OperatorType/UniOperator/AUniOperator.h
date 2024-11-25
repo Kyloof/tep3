@@ -24,9 +24,11 @@ public:
     //Functions
     bool hasChild() const;
     void allocateChild(INode* node);
-    bool inputChild(INode* node, bool exchange);
+    bool inputChild(INode* node, bool exchange, INode *nodeToSwitch);
     INode* traverseDown() const;
     bool isLeaf() const;
+
+    std::queue<INode *> addChildrenToQueue(std::queue<INode *> nodeQueue) const;
 
     //getters&setters
     INode* getChild() const;

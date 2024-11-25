@@ -33,16 +33,31 @@ void AUniOperator::allocateChild(INode* node) {
     node->setParent(this);
 }
 
-bool AUniOperator::inputChild(INode* node, const bool exchange) {
+bool AUniOperator::inputChild(INode* node, const bool exchange, INode *nodeToSwitch) {
     if (exchange) {
-        delete child;
-        allocateChild(node);
-        return true;
+        if (nodeToSwitch != NULL) {
+            if (child == nodeToSwitch) {
+                allocateChild(node);
+                return true;
+            }
+            return false;
+        }
+        else {
+            delete child;
+            allocateChild(node);
+            return true;
+        }
     }
     if (hasChild()) return false;
     allocateChild(node);
     return true;
 }
+
+std::queue<INode *> AUniOperator::addChildrenToQueue(std::queue<INode *> nodeQueue) const {
+    if (hasChild()) nodeQueue.push(child);
+    return nodeQueue;
+}
+
 
 void AUniOperator::printTree() const {
     printValue();

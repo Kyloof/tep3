@@ -21,9 +21,11 @@ public:
 
     //Func
     const INode* evaluate(std::map<std::string, double> &varsMap) const;
-    bool inputChild(INode* node, bool exchange);
+    bool inputChild(INode* node, bool exchange, INode *nodeToSwitch);
     INode* traverseDown() const;
     bool isLeaf() const;
+
+    std::queue<INode *> addChildrenToQueue(std::queue<INode *> nodeQueue) const;
 
     //getters&setters
     INode* getParent() const;

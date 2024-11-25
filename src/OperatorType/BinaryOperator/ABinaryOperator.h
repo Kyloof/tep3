@@ -25,9 +25,11 @@ public:
     void allocateRightChild(INode* node);
     bool hasLeftChild() const;
     bool hasRightChild() const;
-    bool inputChild(INode* node, bool exchange);
+    bool inputChild(INode* node, bool exchange, INode *nodeToSwitch);
     INode* traverseDown() const;
     bool isLeaf() const;
+
+    std::queue<INode *> addChildrenToQueue(std::queue<INode *> nodeQueue) const;
 
     //getters&setters
     const std::string &getFormula(std::string &formula) const;

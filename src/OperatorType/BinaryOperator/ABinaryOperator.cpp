@@ -4,6 +4,8 @@
 
 #include "ABinaryOperator.h"
 
+#include <queue>
+
 //constructors
 ABinaryOperator::ABinaryOperator() : leftChild(0), rightChild(0) {}
 
@@ -45,16 +47,29 @@ void ABinaryOperator::allocateRightChild(INode* node) {
     rightChild->setParent(this);
 }
 
-bool ABinaryOperator::inputChild(INode* node, const bool exchange) {
+bool ABinaryOperator::inputChild(INode* node, const bool exchange, INode *nodeToSwitch) {
     if (exchange) {
-        if (hasLeftChild()) {
-            delete leftChild;
-            allocateLeftChild(node);
+        if (nodeToSwitch != NULL) {
+            if (leftChild == nodeToSwitch) {
+                allocateLeftChild(node);
+                return true;
+            }
+            if (rightChild == nodeToSwitch) {
+                allocateRightChild(node);
+                return true;
+            }
+            return false;
+        }
+        else {
+            if (hasLeftChild()) {
+                delete leftChild;
+                allocateLeftChild(node);
+                return true;
+            }
+            delete rightChild;
+            allocateRightChild(node);
             return true;
         }
-        delete rightChild;
-        allocateRightChild(node);
-        return true;
     }
     if (hasLeftChild()) {
         if (hasRightChild()) {
@@ -74,6 +89,12 @@ INode *ABinaryOperator::traverseDown() const {
 
 bool ABinaryOperator::isLeaf() const {
     return !hasLeftChild();
+}
+
+std::queue<INode *> ABinaryOperator::addChildrenToQueue(std::queue<INode *> nodeQueue) const {
+    if (hasLeftChild()) nodeQueue.push(leftChild);
+    if (hasRightChild()) nodeQueue.push(rightChild);
+    return nodeQueue;
 }
 
 

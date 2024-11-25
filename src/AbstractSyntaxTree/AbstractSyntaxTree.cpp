@@ -6,7 +6,9 @@
 
 #include <iostream>
 #include <iterator>
+#include <string>
 #include <map>
+#include <queue>
 #include <sstream>
 #include <vector>
 
@@ -75,7 +77,7 @@ INode* AbstractSyntaxTree::createNode(const std::string& formula) {
     for (int i = 0; i < formula.size(); i++) {
         if (!std::isdigit(formula[i]) && !std::isalpha(formula[i])) {
             isValid = false;
-            std::cout << "Invalid character " << formula[i] << " detected. ";
+            std::cout<<"Invalid character " << formula[i] << " detected.";
             break;
         }
     }
@@ -97,7 +99,7 @@ INode* AbstractSyntaxTree::createNode(const std::string& formula) {
         return new Variable(formula);
     }
 
-    std::cout << "Formula is invalid: " << formula << "\n";
+    std::cout<< "Formula is invalid: " + formula + "\n";
     return NULL;
 }
 
@@ -115,13 +117,13 @@ bool AbstractSyntaxTree::addFormula(const std::string& formula) {
         return true;
     }
     while (!inputBool) {
-        inputBool = inputNode->inputChild(newNode, false);
+        inputBool = inputNode->inputChild(newNode, false, NULL);
         if (inputBool == true) {
             inputNode = newNode;
             return true;
         }
         if (inputNode->getParent() == 0) {
-            std::cout << "Fixing the formula: removing..." << "\n";
+            std::cout<< "Fixing the formula: removing... \n";
             return false;
         }
         inputNode = inputNode->getParent();
@@ -144,9 +146,10 @@ AbstractSyntaxTree& AbstractSyntaxTree::enter(const std::string &formula) {
         if (formula[i] == ' ' || i == formula.size()  && !currentFormula.empty()){
             const bool result = addFormula(currentFormula);
             if (!result) {
-                std::cout<<"removed: ";
+                std::string removed;
+                removed += "removed: ";
                 for (int j = i - 1; j <= formula.size(); j++) {
-                    std::cout << formula[j];
+                    removed += formula[j];
                 }
                 std::cout << "\n";
                 return *this;
@@ -162,24 +165,24 @@ AbstractSyntaxTree& AbstractSyntaxTree::enter(const std::string &formula) {
 
 void AbstractSyntaxTree::fixTree() {
     if (root == 0) {
-        std::cout << "The tree is empty...";
+        std::cout<< "The tree is empty... \n" ;
         return;
     }
     bool hadToFix = false;
 
     //fix children
     while(inputNode!=root) {
-        if (inputNode->inputChild(new Literal(1), false)) hadToFix = true;
+        if (inputNode->inputChild(new Literal(1), false, NULL)) hadToFix = true;
         inputNode = inputNode->getParent();
     }
 
     //fix root
-    while (inputNode->inputChild(new Literal(1), false)) {
+    while (inputNode->inputChild(new Literal(1), false, NULL)) {
         hadToFix = true;
     }
 
     if (hadToFix) {
-        std::cout << "fixed formula: " << "\n";
+        std::cout<<"fixed formula: \n";
         root->printTree();
         std::cout << "\n";
     }
@@ -200,8 +203,7 @@ std::string AbstractSyntaxTree::comp(const std::string &vars) const {
     }
 
     if (values.size() != varsSet.size()) {
-        std::cout << "Number of variables is not equal to values entered. Please try again..." << "\n";
-        return "";
+        return "Number of variables is not equal to values entered. Please try again... \n";
     }
 
     std::map<std::string, double> varsMap;
@@ -230,7 +232,7 @@ void AbstractSyntaxTree::join(const std::string &formula) {
         }
 
         INode* parentNode = nodeToJoin->getParent();
-        if (parentNode != 0) parentNode->inputChild(other.root, true);
+        if (parentNode != 0) parentNode->inputChild(other.root, true, NULL);
         else {
             delete root;
             root = NULL;
@@ -263,7 +265,33 @@ void AbstractSyntaxTree::print() const {
     std::cout << "\n";
 }
 
+INode* AbstractSyntaxTree::searchTokenBFS(std::string token) {
+    std::queue<INode*> nodeQueue;
+    nodeQueue.push(root);
 
+    while (!nodeQueue.empty()) {
+        INode* currentNode = nodeQueue.front();
+        nodeQueue.pop();
+
+        if (currentNode->getStrValue() == token) return currentNode;
+        nodeQueue = currentNode->addChildrenToQueue(nodeQueue);
+    }
+    return NULL;
+}
+
+bool AbstractSyntaxTree::partialSwap(AbstractSyntaxTree &other, const std::string& token) {
+
+    INode* thisNode = this->searchTokenBFS(token);
+    INode* otherNode = other.searchTokenBFS(token);
+    if (thisNode == NULL || otherNode == NULL) return false;
+
+    if (thisNode == this->root) this->root = otherNode;
+    else thisNode->getParent()->inputChild(otherNode, true, thisNode);
+
+    if (otherNode == other.root) other.root = thisNode;
+    else otherNode->getParent()->inputChild(thisNode, true, otherNode);
+    return true;
+}
 
 
 

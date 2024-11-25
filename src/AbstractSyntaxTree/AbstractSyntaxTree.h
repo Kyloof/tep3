@@ -28,6 +28,7 @@ public:
     std::string comp(const std::string& vars) const;
     void join(const std::string& formula);
     void print() const;
+    bool partialSwap(AbstractSyntaxTree& other, const std::string& token);
 
 
 private:
@@ -36,6 +37,7 @@ private:
     std::set<std::string> varsSet;
     bool addFormula(const std::string& formula);
     INode* createNode(const std::string& formula);
+    INode* searchTokenBFS(std::string token);
 
     void fixTree();
 };

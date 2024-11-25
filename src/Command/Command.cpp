@@ -92,3 +92,5 @@ void Command::compCommand(const std::string& formula) const {
 
 
 
+
+

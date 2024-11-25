@@ -7,6 +7,7 @@
 
 
 #include <map>
+#include <queue>
 #include <string>
 
 
@@ -23,9 +24,10 @@ public:
 
     //Func
     virtual const INode* evaluate(std::map<std::string, double> &varsMap) const = 0; //evaluates sequence from current node
-    virtual bool inputChild(INode* node, bool exchange) = 0;    //returns true if child was inputted, false if not
+    virtual bool inputChild(INode* node, bool exchange, INode *nodeToSwitch) = 0;    //returns true if child was inputted, false if not
     virtual INode* traverseDown() const = 0;     //traverses down the tree... useful for joining
     virtual bool isLeaf() const = 0;
+    virtual std::queue<INode *> addChildrenToQueue(std::queue<INode *> nodeQueue) const = 0;
 
     //getters&setters
     virtual INode* getParent() const = 0;

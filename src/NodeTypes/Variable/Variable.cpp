@@ -30,7 +30,7 @@ const INode *Variable::evaluate(std::map<std::string, double> &varsMap) const {
     return new Literal(it->second);
 }
 
-bool Variable::inputChild(INode *node, const bool exchange) {
+bool Variable::inputChild(INode *node, const bool exchange, INode *nodeToSwitch) {
     return false;
 }
 
@@ -41,6 +41,9 @@ INode *Variable::traverseDown() const {
 bool Variable::isLeaf() const {
     return true;
 }
+
+std::queue<INode *> Variable::addChildrenToQueue(std::queue<INode *> nodeQueue) const {return nodeQueue;}
+
 
 
 //getters&setters

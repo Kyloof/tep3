@@ -40,7 +40,7 @@ const INode* Literal::evaluate(std::map<std::string, double> &varsMap) const {
     return this;
 }
 
-bool Literal::inputChild(INode* node, const bool exchange) {
+bool Literal::inputChild(INode* node, const bool exchange, INode *nodeToSwitch) {
     return false;
 }
 
@@ -51,6 +51,8 @@ INode *Literal::traverseDown() const {
 bool Literal::isLeaf() const {
     return true;
 }
+
+std::queue<INode *> Literal::addChildrenToQueue(std::queue<INode *> nodeQueue) const {return nodeQueue;}
 
 
 
