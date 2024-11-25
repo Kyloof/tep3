@@ -18,13 +18,13 @@ ABinaryOperator::~ABinaryOperator() {
 
 
 //user info
-void ABinaryOperator::printTree() const {
+std::string ABinaryOperator::createFormulaFromNode() const {
     printValue();
     if (hasLeftChild()) {
-        leftChild->printTree();
+        leftChild->createFormulaFromNode();
     }
     if (hasRightChild()) {
-        rightChild->printTree();
+        rightChild->createFormulaFromNode();
     }
 }
 
@@ -47,8 +47,8 @@ void ABinaryOperator::allocateRightChild(INode* node) {
     rightChild->setParent(this);
 }
 
-bool ABinaryOperator::inputChild(INode* node, const bool exchange, INode *nodeToSwitch) {
-    if (exchange) {
+bool ABinaryOperator::inputChild(INode* node, const bool change, INode *nodeToSwitch) {
+    if (change) {
         if (nodeToSwitch != NULL) {
             if (leftChild == nodeToSwitch) {
                 allocateLeftChild(node);

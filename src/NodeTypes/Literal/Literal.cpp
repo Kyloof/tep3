@@ -30,17 +30,17 @@ void Literal::printValue() const {
     std::cout << value << " ";
 }
 
-void Literal::printTree() const {
+std::string Literal::createFormulaFromNode() const {
     printValue();
 }
 
 
 //functions
-const INode* Literal::evaluate(std::map<std::string, double> &varsMap) const {
+double Literal::evaluate(std::map<std::string, double> &varsMap) const {
     return this;
 }
 
-bool Literal::inputChild(INode* node, const bool exchange, INode *nodeToSwitch) {
+bool Literal::inputChild(INode* node, const bool change, INode *nodeToSwitch) {
     return false;
 }
 

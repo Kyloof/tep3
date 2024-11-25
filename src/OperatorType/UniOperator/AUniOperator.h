@@ -15,19 +15,18 @@ public:
     ~AUniOperator();
 
     //virtual
-    const INode* evaluate(std::map<std::string, double> &varsMap) const = 0;
+    double evaluate(std::map<std::string, double> &varsMap) const = 0;
     std::string getStrValue() const = 0;
 
     //user info
-    void printTree() const;
+    std::string createFormulaFromNode() const;
 
     //Functions
     bool hasChild() const;
     void allocateChild(INode* node);
-    bool inputChild(INode* node, bool exchange, INode *nodeToSwitch);
+    bool inputChild(INode* node, bool change, INode *nodeToSwitch);
     INode* traverseDown() const;
     bool isLeaf() const;
-
     std::queue<INode *> addChildrenToQueue(std::queue<INode *> nodeQueue) const;
 
     //getters&setters

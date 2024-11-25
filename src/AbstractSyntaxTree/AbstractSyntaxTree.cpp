@@ -183,7 +183,7 @@ void AbstractSyntaxTree::fixTree() {
 
     if (hadToFix) {
         std::cout<<"fixed formula: \n";
-        root->printTree();
+        root->createFormulaFromNode();
         std::cout << "\n";
     }
 
@@ -261,7 +261,7 @@ void AbstractSyntaxTree::print() const {
         return;
     }
     std::cout<<"printing tree..." << '\n';
-    root->printTree();
+    root->createFormulaFromNode();
     std::cout << "\n";
 }
 

@@ -10,7 +10,7 @@
 
 Sinus::Sinus() {}
 
-const INode *Sinus::evaluate(std::map<std::string, double> &varsMap) const {
+double Sinus::evaluate(std::map<std::string, double> &varsMap) const {
     return new Literal(std::sin(getChild()->evaluate(varsMap)->getValue()));
 }
 

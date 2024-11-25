@@ -18,19 +18,19 @@ void Variable::printValue() const {
     std::cout << getStrValue() << " ";
 }
 
-void Variable::printTree() const {
+std::string Variable::createFormulaFromNode() const {
     printValue();
 }
 
 
 //Functions
-const INode *Variable::evaluate(std::map<std::string, double> &varsMap) const {
+double Variable::evaluate(std::map<std::string, double> &varsMap) const {
     const std::map<std::string, double>::const_iterator it = varsMap.find(name);
     this->value = it->second;
     return new Literal(it->second);
 }
 
-bool Variable::inputChild(INode *node, const bool exchange, INode *nodeToSwitch) {
+bool Variable::inputChild(INode *node, const bool change, INode *nodeToSwitch) {
     return false;
 }
 

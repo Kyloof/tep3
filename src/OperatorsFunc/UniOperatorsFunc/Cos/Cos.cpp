@@ -10,7 +10,7 @@
 
 Cos::Cos(){}
 
-const INode* Cos::evaluate(std::map<std::string, double> &varsMap) const {
+double Cos::evaluate(std::map<std::string, double> &varsMap) const {
     return new Literal(std::cos(getChild()->evaluate(varsMap)->getValue()));
 }
 

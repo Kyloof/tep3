@@ -3,7 +3,7 @@
 //
 
 #include "AUniOperator.h"
-
+//Constructors
 AUniOperator::AUniOperator() : child(0) {}
 
 AUniOperator::~AUniOperator() {
@@ -11,30 +11,17 @@ AUniOperator::~AUniOperator() {
     child = 0;
 }
 
-INode* AUniOperator::getChild() const {
-    return this->child;
+//user info
+std::string AUniOperator::createFormulaFromNode() const {
+    printValue();
+    if (hasChild()) {
+        child->createFormulaFromNode();
+    }
 }
 
-INode *AUniOperator::traverseDown() const {
-    return getChild();
-}
-
-bool AUniOperator::isLeaf() const {
-    return getChild()!=0;
-}
-
-
-bool AUniOperator::hasChild() const {
-    return this->child != 0;
-}
-
-void AUniOperator::allocateChild(INode* node) {
-    this->child = node;
-    node->setParent(this);
-}
-
-bool AUniOperator::inputChild(INode* node, const bool exchange, INode *nodeToSwitch) {
-    if (exchange) {
+//Functions
+bool AUniOperator::inputChild(INode* node, const bool change, INode *nodeToSwitch) {
+    if (change) {
         if (nodeToSwitch != NULL) {
             if (child == nodeToSwitch) {
                 allocateChild(node);
@@ -58,18 +45,32 @@ std::queue<INode *> AUniOperator::addChildrenToQueue(std::queue<INode *> nodeQue
     return nodeQueue;
 }
 
-
-void AUniOperator::printTree() const {
-    printValue();
-    if (hasChild()) {
-        child->printTree();
-    }
+INode *AUniOperator::traverseDown() const {
+    return getChild();
 }
 
+bool AUniOperator::isLeaf() const {
+    return getChild()!=0;
+}
+
+bool AUniOperator::hasChild() const {
+    return this->child != 0;
+}
+
+void AUniOperator::allocateChild(INode* node) {
+    this->child = node;
+    node->setParent(this);
+}
+
+//getters
 const std::string& AUniOperator::getFormula(std::string &formula) const {
     formula+=this->getStrValue() + " ";
     if(hasChild()) child->getFormula(formula);
     return formula;
+}
+
+INode* AUniOperator::getChild() const {
+    return this->child;
 }
 
 

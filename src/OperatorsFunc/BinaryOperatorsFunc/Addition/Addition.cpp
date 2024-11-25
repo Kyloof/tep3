@@ -10,7 +10,7 @@ Addition::Addition() {}
 
 
 //Functions
-const INode* Addition::evaluate(std::map<std::string, double> &varsMap) const {
+double Addition::evaluate(std::map<std::string, double> &varsMap) const {
     const double leftInt = getLeftChild()->evaluate(varsMap)->getValue();
     const double rightInt = getRightChild()->evaluate(varsMap)->getValue();
     return new Literal(leftInt + rightInt);

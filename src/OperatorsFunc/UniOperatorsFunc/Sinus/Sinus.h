@@ -11,7 +11,7 @@ public:
     Sinus();
 
     //Functions
-    const INode *evaluate(std::map<std::string, double> &varsMap) const;
+    double evaluate(std::map<std::string, double> &varsMap) const;
 
     //getters
     std::string getStrValue() const;
