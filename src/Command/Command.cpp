@@ -69,7 +69,7 @@ void Command::helpCommand() {
 }
 
 void Command::enterCommand(const std::string& formula) {
-    this->AST.enter(formula);
+    this->prepareEnter(formula);
 }
 
 void Command::joinCommand(const std::string& formula) {
@@ -77,18 +77,57 @@ void Command::joinCommand(const std::string& formula) {
 }
 
 void Command::printCommand() const {
-    this->AST.print();
+    std::cout<<this->AST.returnFormula();
 }
 
 void Command::varsCommand() {
-    this->AST.vars();
+    std::cout<<this->AST.vars();
 }
 
 void Command::compCommand(const std::string& formula) const {
     std::cout << this->AST.comp(formula) << "\n";
 }
 
+bool Command::checkFormula(const std::string &formula) {
+    if (formula.empty()) {
+        std::cout << "Formula is empty! \n";
+        return false;
+    }
+    if (formula == "+" || formula == "*" || formula == "sin" || formula == "cos" || formula == "-" || formula == "/") {
+        return true;
+    }
+    std::string wrongValues;
 
+    for (int i = 0; i < formula.size(); i++) {
+        char c = formula[i];
+
+        if (!std::isdigit(c) && !std::isalpha(c) && c != '.' && c != '+' && c != '-' && c != '*' && c != '/') {
+            wrongValues += c;
+            wrongValues += " ";
+        }
+    }
+    if (!wrongValues.empty()) {
+        std::cout << "detected wrong values in formula: \n" <<  wrongValues << '\n';
+        return false;
+    }
+    return true;
+}
+void Command::prepareEnter(const std::string &formula) {
+    std::string fixedFormula;
+    std::string currentFormula;
+    for (int i = 0; i <= formula.size(); i++) {
+        if (formula[i] == ' ' || i == formula.size()  && !currentFormula.empty()){
+            if (checkFormula(currentFormula)) {
+                fixedFormula+=currentFormula + " ";
+                currentFormula = "";
+            }
+        }
+        else {
+            currentFormula += formula[i];
+        }
+    }
+    std::cout << AST.enter(fixedFormula);
+}
 
 
 

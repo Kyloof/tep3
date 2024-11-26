@@ -14,32 +14,35 @@
 class AbstractSyntaxTree {
 
 public:
-    //Constructors - private
+    //Constructors
     AbstractSyntaxTree();
     AbstractSyntaxTree(const AbstractSyntaxTree& other);
     ~AbstractSyntaxTree();
+
+    //Operators
     AbstractSyntaxTree& operator=(const AbstractSyntaxTree& other);
     AbstractSyntaxTree operator+(const AbstractSyntaxTree& other) const;
 
 
-    //Console func
-    AbstractSyntaxTree& enter(const std::string& formula);
-    void vars();
+    //Functions
+    std::string vars();
     std::string comp(const std::string& vars) const;
     void join(const std::string& formula);
-    void print() const;
+    std::string returnFormula() const;
     bool partialSwap(AbstractSyntaxTree& other, const std::string& token);
+    std::string fixTree();
+    void deleteTree();
+    bool addFormula(const std::string& formula, bool isNumber);
+    std::string enter(const std::string& formula);
+
 
 
 private:
     INode* root;
     INode* inputNode;
     std::set<std::string> varsSet;
-    bool addFormula(const std::string& formula);
-    INode* createNode(const std::string& formula);
-    INode* searchTokenBFS(std::string token);
-
-    void fixTree();
+    INode* createNode(const std::string& formula, bool isNumber);
+    INode* searchTokenBFS(const std::string& token) const;
 };
 
 

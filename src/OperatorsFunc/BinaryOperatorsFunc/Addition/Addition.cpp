@@ -11,9 +11,9 @@ Addition::Addition() {}
 
 //Functions
 double Addition::evaluate(std::map<std::string, double> &varsMap) const {
-    const double leftInt = getLeftChild()->evaluate(varsMap)->getValue();
-    const double rightInt = getRightChild()->evaluate(varsMap)->getValue();
-    return new Literal(leftInt + rightInt);
+    const double leftDbl = getLeftChild()->evaluate(varsMap);
+    const double rightDbl = getRightChild()->evaluate(varsMap);
+    return leftDbl + rightDbl;
 }
 
 

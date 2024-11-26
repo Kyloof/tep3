@@ -19,13 +19,6 @@ void AOperator::setParent(INode* node) {
     this->parent = node;
 }
 
-void AOperator::printValue() const {
-    std::cout << getStrValue() << " ";
-}
-
-double AOperator::getValue() const {
-    return -1;
-}
 
 
 

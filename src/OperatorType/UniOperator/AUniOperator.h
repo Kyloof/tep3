@@ -18,9 +18,6 @@ public:
     double evaluate(std::map<std::string, double> &varsMap) const = 0;
     std::string getStrValue() const = 0;
 
-    //user info
-    std::string createFormulaFromNode() const;
-
     //Functions
     bool hasChild() const;
     void allocateChild(INode* node);

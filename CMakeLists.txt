@@ -37,4 +37,6 @@ add_executable(lab3 main.cpp
         src/OperatorsFunc/UniOperatorsFunc/Sinus/Sinus.h
         src/OperatorsFunc/UniOperatorsFunc/Cos/Cos.cpp
         src/OperatorsFunc/UniOperatorsFunc/Cos/Cos.h
+        src/Validator/Validator.cpp
+        src/Validator/Validator.h
 )

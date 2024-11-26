@@ -25,19 +25,9 @@ Literal::Literal(const double value) {
 Literal::~Literal() {}
 
 
-//user info
-void Literal::printValue() const {
-    std::cout << value << " ";
-}
-
-std::string Literal::createFormulaFromNode() const {
-    printValue();
-}
-
-
 //functions
 double Literal::evaluate(std::map<std::string, double> &varsMap) const {
-    return this;
+    return value;
 }
 
 bool Literal::inputChild(INode* node, const bool change, INode *nodeToSwitch) {
@@ -54,9 +44,6 @@ bool Literal::isLeaf() const {
 
 std::queue<INode *> Literal::addChildrenToQueue(std::queue<INode *> nodeQueue) const {return nodeQueue;}
 
-
-
-
 // getters&setters
 INode* Literal::getParent() const {
     return parent;
@@ -70,10 +57,6 @@ std::string Literal::getStrValue() const {
     std::ostringstream oss;
     oss << value;
     return oss.str();
-}
-
-double Literal::getValue() const {
-    return value;
 }
 
 const std::string& Literal::getFormula(std::string &formula) const {

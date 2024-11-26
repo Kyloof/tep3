@@ -16,18 +16,6 @@ ABinaryOperator::~ABinaryOperator() {
     rightChild = 0;
 }
 
-
-//user info
-std::string ABinaryOperator::createFormulaFromNode() const {
-    printValue();
-    if (hasLeftChild()) {
-        leftChild->createFormulaFromNode();
-    }
-    if (hasRightChild()) {
-        rightChild->createFormulaFromNode();
-    }
-}
-
 //Functions
 bool ABinaryOperator::hasLeftChild() const {
     return leftChild != 0;

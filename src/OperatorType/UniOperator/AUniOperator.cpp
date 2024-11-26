@@ -11,13 +11,6 @@ AUniOperator::~AUniOperator() {
     child = 0;
 }
 
-//user info
-std::string AUniOperator::createFormulaFromNode() const {
-    printValue();
-    if (hasChild()) {
-        child->createFormulaFromNode();
-    }
-}
 
 //Functions
 bool AUniOperator::inputChild(INode* node, const bool change, INode *nodeToSwitch) {

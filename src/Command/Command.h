@@ -23,8 +23,9 @@ private:
     static void helpCommand();
     void compCommand(const std::string& formula) const;
     void varsCommand();
-
+    bool checkFormula(const std::string& formula);
     AbstractSyntaxTree AST;
+    void prepareEnter(const std::string& formula);
 };
 
 

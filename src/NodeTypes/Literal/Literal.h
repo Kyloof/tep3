@@ -15,10 +15,6 @@ public:
     explicit Literal(double value);
     ~Literal();
 
-    //User info func
-    std::string createFormulaFromNode() const;
-    void printValue() const;
-
     //Func
     double evaluate(std::map<std::string, double> &varsMap) const;
     bool inputChild(INode* node, bool change, INode *nodeToSwitch);
@@ -30,7 +26,6 @@ public:
     INode* getParent() const;
     void setParent(INode* node);
     std::string getStrValue() const;
-    double getValue() const;
     const std::string& getFormula(std::string &formula) const;
 
 private:

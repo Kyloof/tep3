@@ -11,7 +11,7 @@
 Sinus::Sinus() {}
 
 double Sinus::evaluate(std::map<std::string, double> &varsMap) const {
-    return new Literal(std::sin(getChild()->evaluate(varsMap)->getValue()));
+    return std::sin(getChild()->evaluate(varsMap));
 }
 
 

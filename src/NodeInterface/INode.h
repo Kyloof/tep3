@@ -19,7 +19,6 @@ public:
     virtual ~INode() {}
 
     //Func
-    virtual std::string createFormulaFromNode() const = 0; //prints tree from current node
     virtual double evaluate(std::map<std::string, double> &varsMap) const = 0; //evaluates sequence from current node
     //returns true if child was inputted, false if not
     virtual bool inputChild(INode* node, bool change, INode *nodeToSwitch) = 0;

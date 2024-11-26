@@ -11,7 +11,7 @@
 Cos::Cos(){}
 
 double Cos::evaluate(std::map<std::string, double> &varsMap) const {
-    return new Literal(std::cos(getChild()->evaluate(varsMap)->getValue()));
+    return std::cos(getChild()->evaluate(varsMap));
 }
 
 std::string Cos::getStrValue() const{

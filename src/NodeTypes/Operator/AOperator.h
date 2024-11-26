@@ -18,8 +18,6 @@ public:
     bool inputChild(INode* node, bool change, INode *nodeToSwitch) = 0;
     std::string getStrValue() const = 0;
     INode* traverseDown() const = 0;
-
-    std::string createFormulaFromNode() const = 0;
     bool isLeaf() const = 0;
     const std::string &getFormula(std::string &formula) const = 0;
     std::queue<INode *> addChildrenToQueue(std::queue<INode *> nodeQueue) const = 0;
@@ -27,8 +25,7 @@ public:
     //getters&setters
     INode* getParent() const;
     void setParent(INode* node);
-    void printValue() const;
-    double getValue() const;
+
 
 
 protected:
